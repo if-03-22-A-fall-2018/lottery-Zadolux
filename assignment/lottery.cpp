@@ -11,10 +11,13 @@
  *-----------------------------------------------------------------------------
 */
 #include "lottery.h"
+#include <stdio.h>
 
 bool init_lottery(const char *csv_file, char csv_separator)
 {
-  return false;
+  FILE* fd = fopen(csv_file, "r");
+
+  return fd != 0;
 }
 
 bool get_tip(int tip_number, int tip[TIP_SIZE])
