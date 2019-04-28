@@ -31,6 +31,11 @@ FInfo file_info = (FInfo) malloc(sizeof(struct FileInfo));
 
 bool init_lottery(const char *csv_file, char csv_separator)
 {
+  if(file_info->fd != 0)
+  {
+    fclose(file_info->fd);
+  }
+
   file_info->fd = fopen(csv_file, "r");
   file_info->csv_separator = csv_separator;
   return file_info->fd != 0;
