@@ -13,6 +13,7 @@
 #include "lottery.h"
 #include "general.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #define UUID_LEN 40
@@ -37,7 +38,31 @@ bool init_lottery(const char *csv_file, char csv_separator)
 
 bool get_tip(int tip_number, int tip[TIP_SIZE])
 {
-  return false;
+  char current_line[MAX_LINE_LEN];
+
+  for(int i = 0; i <= tip_number; i++)
+  {
+    if(fgets(current_line, MAX_LINE_LEN, file_info->fd) == 0)
+    {
+      return false;
+    }
+  }
+
+  char* delimited = strtok(current_line, &file_info->csv_separator);
+  int counter = 0;
+
+  while(delimited != 0)
+  {
+    delimited = strtok(0, &file_info->csv_separator);
+
+    if(delimited != 0)
+    {
+      tip[counter] = atoi(delimited);
+      counter++;
+    }
+  }
+
+  return true;
 }
 
 bool set_drawing(int drawing_numbers[TIP_SIZE])
