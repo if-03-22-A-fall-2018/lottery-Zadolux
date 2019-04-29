@@ -40,6 +40,9 @@ bool init_lottery(const char *csv_file, char csv_separator)
 
   file_info->fd = fopen(csv_file, "r");
   file_info->csv_separator = csv_separator;
+
+  // Reset drawing
+  drawing[0] = 0;
   return file_info->fd != 0;
 }
 
@@ -94,6 +97,7 @@ bool set_drawing(int drawing_numbers[TIP_SIZE])
     }
     else
     {
+      // Out of range
       return false;
     }
   }
@@ -103,6 +107,12 @@ bool set_drawing(int drawing_numbers[TIP_SIZE])
 
 int get_tip_result(int tip_number)
 {
+  if(drawing[0] == 0)
+  {
+    // No drawing has been set
+    return -1;
+  }
+
   return 0;
 }
 
