@@ -118,10 +118,24 @@ int get_tip_result(int tip_number)
 
   if(!tip_valid)
   {
+    // Tip doesn't exist
     return -2;
   }
 
-  return 0;
+  int counter = 0;
+  for(int i = 0; i < TIP_SIZE; i++)
+  {
+    for(int j = 0; j < TIP_SIZE; j++)
+    {
+      if(tip[j] == drawing[i])
+      {
+        // Tip is in drawing
+        counter++;
+      }
+    }
+  }
+
+  return counter;
 }
 
 int get_right_tips_count(int right_digits_count)
