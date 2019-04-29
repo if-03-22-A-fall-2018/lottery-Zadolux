@@ -57,7 +57,7 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
     // Go to line
     for(int i = 0; i <= tip_number; i++)
     {
-      if(fgets(current_line, MAX_LINE_LEN, file_info->fd) == 0)
+      if(fgets(current_line, MAX_LINE_LEN, file_info->fd) == NULL)
       {
         return false;
       }
@@ -67,12 +67,12 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
     char* delimited = strtok(current_line, &file_info->csv_separator);
     int counter = 0;
 
-    while(delimited != 0)
+    while(delimited != NULL)
     {
       delimited = strtok(0, &file_info->csv_separator);
 
       // Only if not NULL
-      if(delimited != 0)
+      if(delimited != NULL)
       {
         tip[counter] = atoi(delimited);
         counter++;
