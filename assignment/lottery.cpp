@@ -140,12 +140,30 @@ int get_tip_result(int tip_number)
 
 int get_right_tips_count(int right_digits_count)
 {
-   if (right_digits_count > 0 && right_digits_count < TIP_SIZE && drawing[0] != 0)
+   if (right_digits_count >= 0 && right_digits_count <= TIP_SIZE && drawing[0] != 0)
    {
-     // ...
+    int counter = 0;
+    int run_counter = 0;
+
+    // Reset to position 0
+    fseek(file_info->fd, 0, SEEK_SET);
+    char line[MAX_LINE_LEN];
+
+    // Go through each tip result
+    while(fgets(line, MAX_LINE_LEN, file_info->fd) != NULL)
+    {
+      if(get_tip_result(run_counter) == right_digits_count)
+      {
+        counter++;
+      }
+      run_counter++;
+    }
+
+    return counter;
    }
    else
    {
+     // Out of range or no drawing yet
      return -1;
    }
 }
