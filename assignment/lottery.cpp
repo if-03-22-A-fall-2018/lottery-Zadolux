@@ -113,6 +113,14 @@ int get_tip_result(int tip_number)
     return -1;
   }
 
+  int tip[TIP_SIZE];
+  bool tip_valid = get_tip(tip_number, tip);
+
+  if(!tip_valid)
+  {
+    return -2;
+  }
+
   return 0;
 }
 
