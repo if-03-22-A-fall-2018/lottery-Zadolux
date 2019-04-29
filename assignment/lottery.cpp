@@ -31,6 +31,7 @@ FInfo file_info = (FInfo) malloc(sizeof(struct FileInfo));
 
 bool init_lottery(const char *csv_file, char csv_separator)
 {
+  // Close file if opened before
   if(file_info->fd != 0)
   {
     fclose(file_info->fd);
@@ -46,7 +47,10 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
   if(tip_number >= 0)
   {
     char current_line[MAX_LINE_LEN];
+    // Reset to position 0
+    fseek(file_info->fd, 0, SEEK_SET);
 
+    // Go to line
     for(int i = 0; i <= tip_number; i++)
     {
       if(fgets(current_line, MAX_LINE_LEN, file_info->fd) == 0)
@@ -55,6 +59,7 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
       }
     }
 
+    // Split lines with separator
     char* delimited = strtok(current_line, &file_info->csv_separator);
     int counter = 0;
 
@@ -62,6 +67,7 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
     {
       delimited = strtok(0, &file_info->csv_separator);
 
+      // Only if not NULL
       if(delimited != 0)
       {
         tip[counter] = atoi(delimited);
@@ -73,6 +79,7 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
   }
   else
   {
+    // Invalid tip
     return false;
   }
 }
