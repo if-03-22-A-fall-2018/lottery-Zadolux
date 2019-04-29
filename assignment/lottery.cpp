@@ -20,6 +20,7 @@
 #define MAX_TIP_LEN 17
 #define MAX_LINE_LEN (UUID_LEN + 1 + MAX_TIP_LEN + 1)
 
+int drawing[TIP_SIZE];
 typedef struct FileInfo* FInfo;
 struct FileInfo
 {
@@ -86,7 +87,18 @@ bool get_tip(int tip_number, int tip[TIP_SIZE])
 
 bool set_drawing(int drawing_numbers[TIP_SIZE])
 {
-  return false;
+  for (int i = 0; i < TIP_SIZE; i++) {
+    if(drawing_numbers[i] >= 1 && drawing_numbers[i] <= 45)
+    {
+      drawing[i] = drawing_numbers[i];
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 int get_tip_result(int tip_number)
