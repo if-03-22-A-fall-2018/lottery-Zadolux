@@ -140,5 +140,12 @@ int get_tip_result(int tip_number)
 
 int get_right_tips_count(int right_digits_count)
 {
-  return 0;
+   if (right_digits_count > 0 && right_digits_count < TIP_SIZE && drawing[0] != 0)
+   {
+     // ...
+   }
+   else
+   {
+     return -1;
+   }
 }
